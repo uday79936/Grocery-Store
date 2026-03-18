@@ -2,7 +2,6 @@ package com.store.servlet;
 
 import com.store.model.Product;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-@WebServlet("/cart")
 public class CartServlet extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(CartServlet.class.getName());
@@ -71,7 +69,6 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Optional: get cart from session
         HttpSession session = request.getSession(false);
 
         if (session != null) {
