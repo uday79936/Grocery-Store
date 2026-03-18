@@ -1,31 +1,63 @@
-<%@ page import="java.util.*, com.store.model.Product" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+
+<!DOCTYPE html>
 <html>
+<head>
+    <title>Grocery Store</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: green;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+
 <body>
 
 <h2>🛒 Grocery Store</h2>
 
-<%
-    List<Product> products = (List<Product>) request.getAttribute("products");
-    if (products != null) {
-        for (Product p : products) {
-%>
+<c:if test="${not empty products}">
+    <c:forEach var="p" items="${products}">
+        
+        <div class="product">
+            <b>${p.name}</b> - ₹${p.price}
+            
+            <form action="cart" method="post">
+                <input type="hidden" name="id" value="${p.id}" />
+                <input type="hidden" name="name" value="${p.name}" />
+                <input type="hidden" name="price" value="${p.price}" />
+                
+                <button type="submit" class="btn">Add to Cart</button>
+            </form>
+        </div>
 
-<form action="cart" method="post">
-    <p>
-        <b><%= p.getName() %></b> - ₹<%= p.getPrice() %>
-        <input type="hidden" name="id" value="<%= p.getId() %>" />
-        <input type="hidden" name="name" value="<%= p.getName() %>" />
-        <input type="hidden" name="price" value="<%= p.getPrice() %>" />
-        <button type="submit">Add to Cart</button>
-    </p>
-</form>
+    </c:forEach>
+</c:if>
 
-<%
-        }
-    }
-%>
+<c:if test="${empty products}">
+    <p>No products available.</p>
+</c:if>
 
-<a href="cart">View Cart</a>
+<br/>
+
+<a href="cart">🧾 View Cart</a>
 
 </body>
 </html>
