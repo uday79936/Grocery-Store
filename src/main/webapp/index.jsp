@@ -31,29 +31,28 @@
 
 <body>
 
+<%-- ✅ AUTO REDIRECT TO SERVLET IF NO DATA --%>
+<c:if test="${empty products}">
+    <c:redirect url="products"/>
+</c:if>
+
 <h2>🛒 Grocery Store</h2>
 
-<c:if test="${not empty products}">
-    <c:forEach var="p" items="${products}">
+<c:forEach var="p" items="${products}">
+    
+    <div class="product">
+        <b>${p.name}</b> - ₹${p.price}
         
-        <div class="product">
-            <b>${p.name}</b> - ₹${p.price}
+        <form action="cart" method="post">
+            <input type="hidden" name="id" value="${p.id}" />
+            <input type="hidden" name="name" value="${p.name}" />
+            <input type="hidden" name="price" value="${p.price}" />
             
-            <form action="cart" method="post">
-                <input type="hidden" name="id" value="${p.id}" />
-                <input type="hidden" name="name" value="${p.name}" />
-                <input type="hidden" name="price" value="${p.price}" />
-                
-                <button type="submit" class="btn">Add to Cart</button>
-            </form>
-        </div>
+            <button type="submit" class="btn">Add to Cart</button>
+        </form>
+    </div>
 
-    </c:forEach>
-</c:if>
-
-<c:if test="${empty products}">
-    <p>No products available.</p>
-</c:if>
+</c:forEach>
 
 <br/>
 
