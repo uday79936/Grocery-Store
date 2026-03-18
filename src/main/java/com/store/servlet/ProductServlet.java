@@ -2,7 +2,6 @@ package com.store.servlet;
 
 import com.store.model.Product;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-@WebServlet("/products")
 public class ProductServlet extends HttpServlet {
 
     private static final Logger logger = Logger.getLogger(ProductServlet.class.getName());
@@ -45,7 +43,6 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    // Separate method (easy to replace with DB later)
     private List<Product> getProducts() {
         List<Product> products = new ArrayList<>();
 
